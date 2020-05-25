@@ -1,8 +1,13 @@
 package com.handheld.agromalltest.fragments.activity;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.databinding.DataBindingUtil;
 
+import android.Manifest;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.widget.Toast;
 
@@ -22,6 +27,7 @@ public class MainActivity extends AppCompatActivity {
     private ActivityMainBinding binding;
     private Database database;
     private FarmerAddedDialog dialog;
+    private static final int REQUEST_CAMERA_PERMISSION_CODE=40404;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,7 +56,8 @@ public class MainActivity extends AppCompatActivity {
         dashBoardFragment.setDashBoardInterface(new DashBoardFragment.DashBoardInterface() {
             @Override
             public void onAddFarmerRequest() {
-                displayCaptureFarmerDetails();//displayAddFarmerCapturePhotograph();
+                requestCameraPermission();
+             displayAddFarmerCapturePhotograph();
             }
         });
         getSupportFragmentManager().beginTransaction()
@@ -59,6 +66,16 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void displayAddFarmerCapturePhotograph(){
+
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
+//            showToast("Camera Permission required");
+//            if(ActivityCompat.shouldShowRequestPermissionRationale(this,Manifest.permission.CALL_PHONE)){
+//            }else {
+//            }
+            ActivityCompat.requestPermissions(this,new String[]{Manifest.permission.CAMERA},REQUEST_CAMERA_PERMISSION_CODE);
+            return;
+        }
+
         CapturePhotographFragment fragment =new CapturePhotographFragment();
         fragment.setPhotographInterface(new CapturePhotographFragment.PhotographInterface() {
             @Override
@@ -102,5 +119,24 @@ public class MainActivity extends AppCompatActivity {
                 .replace(binding.content.getId(),fragment)
                 .commit();
     }
+
+    public void requestCameraPermission(){
+
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        if (requestCode == REQUEST_CAMERA_PERMISSION_CODE) {
+            if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED) {
+                displayAddFarmerCapturePhotograph();
+            } else {
+                Toast.makeText(this,"Permissions not granted by the user.",Toast.LENGTH_SHORT).show();
+                finish();
+            }
+        }
+        super.onRequestPermissionsResult(requestCode,permissions,grantResults);
+    }
+
+
 
 }
