@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 
 import com.handheld.agromalltest.R;
 import com.handheld.agromalltest.databinding.FragmentDashBoardBinding;
+import com.handheld.agromalltest.fragments.database.Database;
 
 public class DashBoardFragment extends Fragment {
 
@@ -30,6 +31,7 @@ public class DashBoardFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         boardBinding.addFarmerBtn.setOnClickListener(v->dashBoardInterface.onAddFarmerRequest());
+        boardBinding.textView2.setText(Database.getInstance(getContext()).getFarmerDAO().getFarmers().size()+"");
     }
 
     public void setDashBoardInterface(DashBoardInterface dashBoardInterface) {

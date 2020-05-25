@@ -43,12 +43,17 @@ public class MainActivity extends AppCompatActivity {
         loginFragment.setLoginFragmentInterface(new LoginFragment.LoginFragmentInterface() {
             @Override
             public void onLogin(boolean done) {
+                if(!done){
+                    Toast.makeText(MainActivity.this,"Wrong login",Toast.LENGTH_SHORT).show();
+                    return;
+                }
                 displayDashBoard();
             }
         });
          getSupportFragmentManager().beginTransaction()
          .replace(binding.content.getId(),loginFragment)
          .commit();
+        setTitle("Login");
     }
 
     public void displayDashBoard(){
@@ -63,6 +68,7 @@ public class MainActivity extends AppCompatActivity {
         getSupportFragmentManager().beginTransaction()
                 .replace(binding.content.getId(),dashBoardFragment)
                 .commit();
+        setTitle("Dashboard");
     }
 
     public void displayAddFarmerCapturePhotograph(){
@@ -86,6 +92,7 @@ public class MainActivity extends AppCompatActivity {
         getSupportFragmentManager().beginTransaction()
                 .replace(binding.content.getId(),fragment)
                 .commit();
+        setTitle("Photograph");
     }
 
     public void displayCaptureFarmDetails(){
@@ -99,6 +106,7 @@ public class MainActivity extends AppCompatActivity {
         getSupportFragmentManager().beginTransaction()
                 .replace(binding.content.getId(),fragment)
                 .commit();
+        setTitle("Enter Farm Details");
     }
 
     public void displayCaptureFarmerDetails(){
@@ -118,6 +126,7 @@ public class MainActivity extends AppCompatActivity {
         getSupportFragmentManager().beginTransaction()
                 .replace(binding.content.getId(),fragment)
                 .commit();
+        setTitle("Enter Farmer details");
     }
 
     public void requestCameraPermission(){
