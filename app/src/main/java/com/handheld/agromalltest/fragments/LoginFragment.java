@@ -42,7 +42,7 @@ public class LoginFragment extends Fragment {
     }
 
     private void login(){
-      boolean done=  repository.login("","");
+      boolean done=  repository.login(binding.editText2.getText().toString(),binding.editText.getText().toString());
       if(loginFragmentInterface!=null)
       loginFragmentInterface.onLogin(done);
     }

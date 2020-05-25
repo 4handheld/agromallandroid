@@ -1,5 +1,6 @@
 package com.handheld.agromalltest.fragments.fragments;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -39,5 +40,10 @@ public class CaptureFarmDetailsFragment extends Fragment {
 
     public interface FarmDetailsCaptured{
         public void FarmCaptured(Farm farm);
+    }
+
+    public void requestMapSearch(){
+        Intent t=new Intent();
+
     }
 }
