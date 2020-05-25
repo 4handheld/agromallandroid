@@ -14,7 +14,7 @@ public class StaffRepository {
     }
 
     public boolean login(String email,String password){
-        return ("test@theagromall.com" == email) && ("password" == password);
+        return ("test@theagromall.com".contentEquals(email)) && ("password".contentEquals(password));
     }
 
     public StaffViewModel getStaff(){

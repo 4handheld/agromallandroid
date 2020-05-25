@@ -7,6 +7,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -43,6 +44,7 @@ public class LoginFragment extends Fragment {
 
     private void login(){
       boolean done=  repository.login(binding.editText2.getText().toString(),binding.editText.getText().toString());
+        Log.i(binding.editText2.getText().toString(),binding.editText.getText().toString());
       if(loginFragmentInterface!=null)
       loginFragmentInterface.onLogin(done);
     }
